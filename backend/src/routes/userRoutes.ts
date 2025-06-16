@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { userController } from "../controllers/UserController";
+import { userController } from "../controllers/userController";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
 export const userRouter = Router();
-userRouter.post("/", (req, res) => userController.salvar(req, res));
-userRouter.get("/", (req, res) => userController.listar(req, res));
-userRouter.get("/:id", (req, res) => userController.consultar(req, res));
-userRouter.put("/:id", (req, res) => userController.atualizar(req, res));
-userRouter.delete("/:id", (req, res) => userController.deletar(req, res));
+userRouter.use(authMiddleware.validar);
+userRouter.post("/", userController.salvar);
+userRouter.get("/", userController.listar);
+userRouter.get("/:id", userController.consultar);
+userRouter.put("/:id", userController.atualizar);
+userRouter.delete("/:id", userController.deletar);

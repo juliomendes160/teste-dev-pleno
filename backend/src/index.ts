@@ -1,19 +1,18 @@
 import express from 'express';
-import { AppDataSource } from "./config/data-source";
-import { userRouter } from './routes/UserRoutes';
+import { dataConfig } from "./config/data";
+import { authRouter } from './routes/authRoutes';
+import { userRouter } from './routes/userRoutes';
+
 
 const app = express();
 app.use(express.json());
 
-AppDataSource.initialize()
+dataConfig.initialize()
 	.then(() => {
 		console.log("Sucesso ao conectar banco de dados!");
-
+	
+		app.use("/auth", authRouter);
 		app.use("/user", userRouter);
-
-		app.get('/', (req, res) => {
-			res.send('Sucesso ao acessar rota!');
-		});
 
 		app.listen(3000, () => {
 			console.log("Sucesso ao conectar servidor!");

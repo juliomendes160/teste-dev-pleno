@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { User } from "../entities/User";
-import { userDao } from "../daos/UserDao";
+import { userDao } from "../daos/userDao";
 
 export const userController = {
 
@@ -91,7 +91,7 @@ export const userController = {
 
 		try {
 			const user = await userDao.consultar(id);
-			
+
 			if (!user) {
 				res.status(404).json({ mensagem: "Registro não encontrado!" });
 				return;

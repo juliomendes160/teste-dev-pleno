@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { User } from '../entities/User';
 
-export const AppDataSource = new DataSource({
+export const dataConfig = new DataSource({
 	type: 'mysql',
 	host: 'localhost',
 	port: 3306,
@@ -12,7 +12,3 @@ export const AppDataSource = new DataSource({
 	synchronize: true,
 	entities: [User],
 });
-
-// export const pesso = class Pessoa {
-
-// }
